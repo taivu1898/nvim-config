@@ -1,23 +1,9 @@
 return {
-
   -- For ui, replace input default and menu
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
   },
-
-  -- Todo Comments
-  -- {
-  --   "folke/todo-comments.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   event = {
-  --     "BufReadPre",
-  --     "BufNewFile",
-  --   },
-  --   config = function()
-  --     require "configs.todo-comments"
-  --   end,
-  -- },
 
   -- Template
   {
