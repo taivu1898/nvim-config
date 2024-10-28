@@ -19,7 +19,13 @@ lspconfig.clangd.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed" },
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "--offset-encoding=utf-16",
+  },
   filetypes = { "c", "cpp", "objc", "objcpp" },
   settings = {
     clangd = {
