@@ -1,25 +1,27 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+
+-- Set leader key for convenience
 vim.g.mapleader = " "
 
+-- Lazy.nvim setup
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-
 if not vim.uv.fs_stat(lazypath) then
   local repo = "https://github.com/folke/lazy.nvim.git"
   vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
-
 vim.opt.rtp:prepend(lazypath)
 
+-- Auto commands
 -- Disable line numbers for .txt files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.txt",
   callback = function()
-    vim.wo.number = false -- Disable absolute line numbers
-    vim.wo.relativenumber = false -- Disable relative line numbers
+    vim.wo.number = false
+    vim.wo.relativenumber = false
   end,
 })
 
--- For neovide users in a Windows enviroment using pwsh
+-- Set shell and shell options for Windows
 if vim.fn.has "win32" == 1 then
   vim.opt.shell = "pwsh"
   vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
@@ -29,25 +31,27 @@ if vim.fn.has "win32" == 1 then
   vim.opt.shellredir = "| Out-File -Encoding UTF8 %s"
 end
 
+-- Neovide-specific settings for better UI experience on Windows
 if vim.g.neovide then
-  vim.opt.guifont = "JetBrainsMono Nerd Font:h12"
-  vim.g.remember_window_size = true
+  vim.g.neovide_antialiasing = true
+  vim.g.neovide_clear_type = true
+  vim.g.neovide_cursor_vfx_mode = "railgun"
+  vim.g.neovide_cursor_vfx_opacity = 250
+  vim.g.neovide_cursor_vfx_particle_density = 10.0
+  vim.g.neovide_cursor_vfx_particle_lifetime = 0.8
+  vim.g.neovide_cursor_vfx_type = "wave"
+  vim.g.neovide_fullscreen = true
+  vim.g.neovide_max_fps = 120
   vim.g.remember_window_position = true
+  vim.g.remember_window_size = true
+  vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 
   local function toggle_transparency()
-    if vim.g.neovide_transparency == 1.0 then
-      vim.cmd "let g:neovide_transparency=0.9"
-    else
-      vim.cmd "let g:neovide_transparency=1.0"
-    end
+    vim.g.neovide_transparency = (vim.g.neovide_transparency == 1.0) and 0.9 or 1.0
   end
 
   local function toggle_fullscreen()
-    if vim.g.neovide_fullscreen == false then
-      vim.cmd "let g:neovide_fullscreen=v:true"
-    else
-      vim.cmd "let g:neovide_fullscreen=v:false"
-    end
+    vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
   end
 
   vim.keymap.set("n", "<F11>", toggle_fullscreen, { silent = true })
@@ -55,7 +59,6 @@ if vim.g.neovide then
 end
 
 local lazy_config = require "configs.lazy"
-
 require("lazy").setup({
   {
     "NvChad/NvChad",
