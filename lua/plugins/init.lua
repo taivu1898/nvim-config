@@ -49,15 +49,7 @@ return {
         "vim",
         "lua",
         "vimdoc",
-
-        "markdown",
-
-        "cpp",
-        "c",
-
         "python",
-
-        "haskell",
       },
     },
   },
