@@ -16,6 +16,10 @@ return {
     end,
   },
 
+  -- Pomodoro
+  "nvzone/volt",
+  { "nvzone/timerly", cmd = "TimerlyToggle" },
+
   -- Markdown Preview
   {
     "iamcco/markdown-preview.nvim",
